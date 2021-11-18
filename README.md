@@ -18,5 +18,5 @@ Description:
 
 References: 
 
-- MUSCLE
-- FastTree
+- MUSCLE: Edgar2004 ([10.1186/1471-2105-5-113](https://doi.org/10.1186/1471-2105-5-113))
+- FastTree: Price2010 ([10.1371/journal.pone.0009490](https://doi.org/10.1371/journal.pone.0009490))
