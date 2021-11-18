@@ -26,4 +26,5 @@ process FastTreePhylo {
     """
 }
 
+alignment_ch.view()
 tree_ch.view()
