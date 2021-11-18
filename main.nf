@@ -1,8 +1,12 @@
 #!/usr/bin/env nextflow
 
+// Jake Bowden 11/21
+
+// Create a channel containing homologs from the --in path parameter:
 homologs_ch = channel.fromPath(params.in)
 
 process MuscleAlign {
+    // Pass homolog channel to muscle and open alignment channel:
     input:
     file homologs from homologs_ch
 
@@ -14,7 +18,11 @@ process MuscleAlign {
     """
 }
 
+// Print path to alignment (view closes but returns an identical channel):
+alignment_ch = alignment_ch.view()
+
 process FastTreePhylo {
+    // Calculate tree from the alignment, open tree channel: 
     input:
     file alignment from alignment_ch
 
@@ -26,5 +34,5 @@ process FastTreePhylo {
     """
 }
 
-alignment_ch.view()
+// Print path to output tree file:
 tree_ch.view()
