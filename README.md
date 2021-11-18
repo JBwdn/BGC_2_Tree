@@ -4,15 +4,15 @@ Using [NextFlow](https://www.nextflow.io/docs/latest/index.html) and [this  temp
 
 Local usage: 
 
-    nextflow run main.nf -in data/example_homologs.fasta
+    nextflow run main.nf --in data/example_homologs.fasta
 
 Remote usage: 
 
-    nextflow run jbwdn/nextflow_simple_phylogenetics -in homologs.fasta
+    nextflow run jbwdn/nextflow_simple_phylogenetics --in your_local_homologs.fasta
 
 Description: 
 
-    1. Take a set of homolog protein sequeces in fasta format
+    1. Accept a set of homolog protein sequeces in fasta format
     2. Perform protein sequence alignment using MUSCLE
     3. Use alignment to calculate a phylogenetic Tree using FastTree
 
