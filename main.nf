@@ -30,7 +30,7 @@ process FastTreePhylo {
     file "output.tree" into tree_ch
 
     """
-    FastTreeMP -out output.tree $alignment
+    fasttreeMP -out output.tree $alignment
     """
 }
 
