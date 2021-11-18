@@ -1,40 +1,29 @@
 #!/usr/bin/env nextflow
 
-process BashExample {
-    output: 
-    stdout bash_result
-    """
-    echo "Hello from bash..."
-    """
-}
+homologs_ch = channel.fromPath(params.in)
 
-process pythonExample {
+process MuscleAlign {
+    input:
+    file homologs from homologs_ch
+
     output:
-    stdout python_result
+    file "alignment.fasta" into alignment_ch
+
     """
-    #!/usr/bin/env python3
-    print("Hello from python World!")
+    muscle -in $homologs -out alignment.fasta
     """
 }
 
-process juliaExample {
+process FastTreePhylo {
+    input:
+    file alignment from alignment_ch
+
     output:
-    stdout julia_result
+    file "output.tree" into tree_ch
+
     """
-    #!/usr/bin/env julia
-    println("Julia says hello")
+    FastTreeMP -out output.tree $alignment
     """
 }
 
-process pythonScriptExample {
-    output:
-    stdout script_result
-    """
-    example.py
-    """
-}
-
-bash_result.view()
-python_result.view()
-julia_result.view()
-script_result.view()
+tree_ch.view()
