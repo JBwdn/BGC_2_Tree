@@ -16,6 +16,14 @@ Description:
     2. Perform protein sequence alignment using MUSCLE
     3. Use alignment to calculate a phylogenetic Tree using FastTree
 
+Installation: (Tested in WSL2 Ubuntu 20.04.2 LTS)
+
+    sudo apt update
+    sudo apt install muscle
+    sudo apt install fasttree
+
+See Nextflow docs for installation instructions.
+
 References: 
 
 - MUSCLE: Edgar2004 ([10.1186/1471-2105-5-113](https://doi.org/10.1186/1471-2105-5-113))
