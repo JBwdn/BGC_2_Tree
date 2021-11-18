@@ -1,20 +1,22 @@
-# NextFlow pipeline template
+# Phylogenetics pipeline
 
-Use this template to generate a repo for your own pipelines
+Using [NextFlow](https://www.nextflow.io/docs/latest/index.html) and [this  template](https://github.com/JBwdn/nextflow_template).
 
-See the example main.nf for how to structure the script.
+Local usage: 
 
-To include scripts, eg. in python or julia - ensure they are executable and add to /bin/. 
+    nextflow run main.nf -in data/example_homologs.fasta
 
-Workflows can then be run remotely using the command: nextflow run user/repo
-eg.
+Remote usage: 
 
-    nextflow run jbwdn/nextflow_template
+    nextflow run jbwdn/nextflow_simple_phylogenetics -in homologs.fasta
 
-Clean up after runs using:
+Description: 
 
-    nextflow clean -f run_name
-    
-Modify resource usage or allocate per process in nextflow.config
+    1. Take a set of homolog protein sequeces in fasta format
+    2. Perform protein sequence alignment using MUSCLE
+    3. Use alignment to calculate a phylogenetic Tree using FastTree
 
-See full documentation [here](https://www.nextflow.io/docs/latest/index.html).
+References: 
+
+- MUSCLE
+- FastTree
