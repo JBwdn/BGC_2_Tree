@@ -2,8 +2,29 @@
 
 // Jake Bowden 11/21
 
-// Create a channel containing homologs from the --in path parameter:
-homologs_ch = channel.fromPath(params.in)
+// Default DB path:
+params.db = "data/gbk_records/" 
+// Creates a channel with a symbolic link to gbk database:
+gbk_db_ch = channel.fromPath(params.db, type: "dir")
+// Create a channel containing the query fasta from the --in path parameter:
+query_seq_ch = channel.fromPath(params.in)
+
+
+process phmmerHomologWrapper {
+    // Call the phmmer wrapper python script which calls and parses results:
+    input:
+    file query_seq from query_seq_ch
+    file gbk_db from gbk_db_ch
+
+    output:
+    file "query_homologs.fasta" into homologs_ch 
+
+    """
+    find_homologs.py -query_fasta $query_seq -db_path $gbk_db -out "query_homologs.fasta"
+    """
+}
+homologs_ch = homologs_ch.view()
+
 
 process MuscleAlign {
     // Pass homolog channel to muscle and open alignment channel:
@@ -17,9 +38,8 @@ process MuscleAlign {
     muscle -in $homologs -out alignment.fasta
     """
 }
-
-// Print path to alignment (view closes but returns an identical channel):
 alignment_ch = alignment_ch.view()
+
 
 process FastTreePhylo {
     // Calculate tree from the alignment, open tree channel: 
@@ -33,6 +53,4 @@ process FastTreePhylo {
     fasttreeMP -out output.tree $alignment
     """
 }
-
-// Print path to output tree file:
 tree_ch.view()
