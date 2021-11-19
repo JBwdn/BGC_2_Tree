@@ -12,7 +12,7 @@ query_seq_ch = channel.fromPath(params.in)
 
 process phmmerHomologWrapper {
     // Call the phmmer wrapper python script which calls and parses results:
-    conda "environment.yml"
+    conda "bioconda::hmmer biopython"
     input:
     file query_seq from query_seq_ch
     file gbk_db from gbk_db_ch
@@ -21,6 +21,7 @@ process phmmerHomologWrapper {
     file "query_homologs.fasta" into homologs_ch 
 
     """
+    pip install jinfo
     find_homologs.py -query_fasta $query_seq -db_path $gbk_db -out "query_homologs.fasta"
     """
 }
