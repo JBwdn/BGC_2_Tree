@@ -12,7 +12,7 @@ query_seq_ch = channel.fromPath(params.in)
 
 process phmmerHomologWrapper {
     // Call the phmmer wrapper python script which calls and parses results:
-    // conda "environment.yml"
+    conda "environment.yml"
     input:
     file query_seq from query_seq_ch
     file gbk_db from gbk_db_ch
