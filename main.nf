@@ -12,6 +12,7 @@ query_seq_ch = channel.fromPath(params.in)
 
 process phmmerHomologWrapper {
     // Call the phmmer wrapper python script which calls and parses results:
+    // conda "environment.yml"
     input:
     file query_seq from query_seq_ch
     file gbk_db from gbk_db_ch
@@ -28,6 +29,7 @@ homologs_ch = homologs_ch.view()
 
 process MuscleAlign {
     // Pass homolog channel to muscle and open alignment channel:
+    conda "bioconda::muscle"
     input:
     file homologs from homologs_ch
 
@@ -43,6 +45,7 @@ alignment_ch = alignment_ch.view()
 
 process FastTreePhylo {
     // Calculate tree from the alignment, open tree channel: 
+    conda "bioconda::fasttree"
     input:
     file alignment from alignment_ch
 
@@ -50,7 +53,7 @@ process FastTreePhylo {
     file "output.tree" into tree_ch
 
     """
-    fasttreeMP -out output.tree $alignment
+    FastTreeMP -out output.tree $alignment
     """
 }
 tree_ch.view()
