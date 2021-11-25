@@ -12,7 +12,7 @@ Example local usage:
 
 Remote usage: 
 
-    nextflow run jinfo-dev/bgc2tree --in your_local_query.fasta --db your_local_direcory_of_gbks
+    nextflow run jbwdn/bgc_2_tree --in your_local_query.fasta --db your_local_direcory_of_gbks
 
 Description: 
 
